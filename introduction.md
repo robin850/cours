@@ -4,7 +4,7 @@ Bienvenue sur la page d'accueil de ce cours traitant de la programmation avec le
 
 Si vous comptez vous lancer dans l'aventure en suivant ce cours, aucune connaissance préalable n'est requise. L'idée principale de ce tutoriel est de faire découvrir aux débutants Ruby tout en abordant les sujets avancés qui caractérisent le langage.
 
-Aujourd'hui, de grandes sociétés et groupes tel que Twitter, La NASA, Google, UserVoice ou encore IBM utilisent Ruby. Il est aussi à la base d'outils tel que [Ruby on Rails], [Ruboto], [Sinatra], [Redmine], [SciRuby] ou encore [Redcar].
+Aujourd'hui, de grandes sociétés et groupes tel que Twitter, La NASA, Google, UserVoice, GitHub ou encore IBM utilisent Ruby. Il est aussi à la base d'outils tel que [Ruby on Rails], [Ruboto], [Sinatra], [Redmine], [SciRuby] ou encore [Redcar].
 
 Dans ce tutoriel, nous verrons donc les bases du langage ainsi que le concept de programmation orienté objet et des notions avancées et propres au langage. Nous essaierons aussi de vous guider dans la création et aussi l'organisation dans vos projets notamment en fin de cours. 
 
