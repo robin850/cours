@@ -1,0 +1,366 @@
+# Les conditions
+
+Les conditions sont un bon moyen d'ajouter de la flexibilité et de complexifier un peu l'organisation de nos programmes. Elles permettent tout simplement dexécuter des actions dans certains situations définies.
+
+## Les booléens
+
+Un booléen (_boolean_ en anglais) représente l'évaluation d'une portion de code. Cette évaluation est représentée soit par `true` (vrai) soit par `false` (faux). Chaque expression conditionnelle est évaluée à true ou false. Les booléens interviennent donc dans la conception des conditions. Pour « construire » un booléen, il faut faire intervenir plusieurs concepts. Les opérateurs de comparaison en font partie.
+
+> **Information** : `nil` (nul) est évalué à `false`. Si une variable, par exemple, a pour valeur `nil`, elle sera évaluée à `false` une fois passée à une condition par exemple. `nil` est la représentation d'un renvoie nul. Tout est renvoie en Ruby, lorsque rien n'est renvoyée, Ruby renvoie automatiquement `nil`.
+
+### Les opérateurs de comparaison
+
+Les opérateurs de comparaisons s'avèrent utiles lors de la conception des conditions. Voici un tableau  listant ces derniers et résumant leur signification :
+
+
+Opérateur | Description
+----------|-------------
+`==`      | égal à
+`!=`      | différent de
+`>`       | supérieur à
+`<`       | inférieur à
+`>=`      | supérieur ou égal
+`<=`      | inférieur ou égal
+
+> **Atention** : L'opérateur `=` et `==` sont différents ! Le premier assigne une valeur à une variable alors que le second est utilisé pour comparer des éléments. C'est une erreur que l'on commet souvent lorsque l'on débute. Prenez donc garde.
+
+Voici quelques exemples utilisant ces opérateurs de comparaison (ainsi que le résultat de leur évaluation) :
+
+~~~ruby
+10 == 20 # => false
+
+5 != 3 # => true
+
+5 < 9  # => true
+
+3 > 100 # => false
+
+20 <= 70 # => true
+
+38 >= 38 # => true
+~~~
+
+La comparaison des chaînes de caractères est possible mais est un peu particulière. Voici l'ordre dans lequel Ruby classe les différents types :
+
+1. Les nombres
+2. Lettres minuscules a...z
+3. Lettres majuscules A...Z
+
+Par exemple :
+
+~~~ruby
+"123" < "ABC" # => true
+
+"a" > "A" # => true
+~~~
+
+C'est en partie avec ce genre de syntaxe que l'on construit les conditions. Ruby évalue le résultat de la comparaison à true ou false. Si c'est vrai, il évalue le code que la condition doit exécuter une fois rempli. Si c'est faux, le code n'est pas exécuté.
+
+### Les opérateurs logiques
+
+Les opérateurs logiques nous permettent de complexifier l'écriture de certaines conditions ou à les rendre plus « souples ». Il existe trois principaux opérateurs logiques :
+
+Opérateur | Description
+----------|------------
+`or`      | ou
+`and`     | et
+`not`     | négation d'un booléen
+
+Plutôt simple. Le `not` est là pour inverser l'évaluation d'un booléen. En d'autres termes, si l'expression sans le not est évaluée à true, elle le sera à false et _vice et versa_. Essayons de comprendre un peu plus en détails le fonctionnement de ces opérateurs.
+
+#### L'opérateur or
+
+L'opérateur or est en quelques sortes le séparateur entre deux ou plusieurs conditions. Il faut qu'au moins une partie de la condition soit évaluée à true pour que la condition soit remplie. Voici un exemple:
+
+~~~ruby
+# true or false
+3 < 10 or 100 == 0 # => true
+
+# true   or true
+1 == 2/2 or 92 > 34 # => true
+
+# false or false
+5 < 0.5 or 76 < 18 # => false
+~~~
+
+Vous pouvez également utiliser `||` pour remplacer or. Certains développeurs préfèrent utiliser cette syntaxe qui est à leur sens plus claire car on différencie très rapidement et visuellement les différentes partie d'une condition :
+
+~~~ruby
+3 < 10 || 100 == 0 # => true
+~~~
+
+#### L'opérateur and
+
+L'opérateur and permet de vérifier que toutes les expressions à évaluer le soit à `true`. Si une seule partie de la condition est évaluée à `false`, toute la condition est évaluée à `false`. Voici quelques exemples:
+
+~~~ruby
+5 == 10 / 2 and 1 < 100 # => true
+
+34 < 12 and 10 == 30 / 3 # => false
+
+78 == 33 and 27 != 27 # => false
+~~~
+
+Vous pouvez également noter cet opérateur `&&`. Même remarque qu'avec `or` et `||` ; c'est principalement un question de préférence.
+
+### La négation not
+
+`not` est un mot clé qui permet d'inverser l'évaluation d'une expression. Il n'a pas la même vocation que `and` ou `or` (à savoir réduire ou augmenter la « souplesse » qu'une condition a pour être remplie ou non) et il est d'ailleurs souvent combiné avec ces derniers. Cet opérateur peut également s'écrire par `!`. Voici quelques exemples résumant tout ceci:
+
+~~~ruby
+not 3 == 5 # => true
+
+not 10 == 20 / 2 # => false
+
+# true and not false (true)
+45 == 3 * 15 and not 10 == 30 # => true
+
+!10 == 20 # => true
+~~~
+
+## Le bloc principal if
+
+Vous avez sans doute senti la simplicité de la syntaxe de Ruby à travers les chapitres précédents car très proche de la langue anglaise. Ainsi, si vous avez quelques connaissances en anglais, vous vous doutez déjà que le mot-clé que nous allons utiliser est `if` (qui signifie en français _si_). Voici donc à quoi ressemble le code d'une condition simple :
+
+~~~ruby
+if condition
+  # Suite d'instructions à exécuter
+end
+~~~
+
+Tout le code situé entre `if` et `end` sera exécuté uniquement si la condition donnée est évaluée à true. En fait, juste après le if, on peut placer tous les exemples que l'on a vu dans la partie précédente (concernant les booléens). Ruby va tout simplement évaluer tout ce qui se trouve après le if à `true` ou `false`. Voici un exemple :
+
+~~~ruby
+solde = 10
+if solde > 0
+  puts "Votre solde est créditeur."
+end
+~~~
+
+Voici donc le résultat :
+
+~~~
+Votre solde est créditeur.
+~~~
+
+Essayons maintenant de changer la valeur de notre variable argent, mettons par exemple la valeur -5, puis exécutons notre programme.
+
+> **Question** : Rien ne s'est affiché... Pourquoi ?
+
+C'est tout à fait normal. Mise à part la condition et le code a évaluer si la condition est remplie, notre programme ne contient rien. Nous verrons dans la partie suivante qu'il est possible d'exécuter du code si jamais la condition n'est pas remplie.
+
+### Le fil rouge
+
+Voici le code associé au mécanisme du jeu du plus ou moins concernant la condition if (nous verrons qu'il pourra être amélioré par la suite) :
+
+~~~ruby
+reponse = gets.chomp
+
+if reponse < mystere
+  puts "C'est plus."
+end
+
+if reponse > mystere
+  puts "C'est moins."
+end
+
+if reponse == mystere
+  puts "Il s'agit de la bonne réponse !"
+end
+~~~
+
+Un point est à noter ici : ruby va ici évaluer chaque condition même si elles concernent toutes un même « _jeu_ » de conditions (on teste les différentes valeurs de la variable reponse). La partie suivante devrait nous proposer une solution à ce problème !
+
+## Else et Elsif
+
+Nous avons vu que if pouvait rapidement atteindre ses limites s'il est utilisé seul (notamment lorsque l'on vérifie plusieurs conditions d'un même « jeu »). Les mots clés `else` et `elsif` permettent de rendre plus souple la vérification de plusieurs conditions.
+
+### If - else
+
+`else` est un mot clé qui se place dans le bloc de la condition (entre if et end si vous préfèrez). Il permet tout simplement d'exécuter du code si jamais la condition n'est pas remplie.
+
+~~~ruby
+if condition
+  # Instructions si "condition" est remplie
+else
+  # Instructions si "condition" n'est pas remplie
+  # équivaut en _quelques sortes_ à if not condition
+end
+~~~
+
+Voici une amélioration d'un exemple de code de la partie précédente utilisant le mot clé `else`:
+
+~~~ruby
+argent = 10
+
+if argent > 0
+  puts "Votre compte est créditeur."
+else
+  puts "Votre compte est débiteur."
+end
+~~~
+
+Ce programme affichera tout simplement _Votre compte est créditeur_. Changeons maintenant la valeur de `argent`, mettons par exemple -5, le résultat sera le suivant :
+
+~~~ruby
+Votre compte est débiteur.
+~~~
+
+### Le mot clé elsif
+
+Le mot clé `elsif` est la contraction du mot « else if » signifiant sinon si. Il est possible d'en placer plusieurs à la suite.
+
+`elsif` est en fait la réponse à notre problème de la partie précédente. Il permet tout simplement d'ajouter d'autres conditions qui seront évaluées si la première (passée à if) n'est pas validée. Ruby évalue dans l'ordre les conditions passées aux différents `elsif`. Il stoppera l'évaluation lorsqu'une condition sera remplie. Tout ceci peut vous paraître un peu flou, voici donc un code illustrant ceci :
+
+~~~ruby
+if condition1
+  # instructions ...
+elsif condition2
+  # ...
+elsif condition3
+  # ...
+elsif conditionN
+  # ...
+else
+  # ...
+end
+~~~
+
+Comme vous pouvez le constater, on peut mettre autant de `elsif` qu'on le souhaite.
+
+
+### Le fil rouge
+
+Prenons un autre exemple par le biais de notre fil rouge. Voici le code donné précédemment dans le chapitre réécrit en utilisant `elsif`. L'avantage ici est que si jamais la condition passée à if est remplie, ruby arrête l'évaluation du reste du bloc de la condition (on a également moins de code accessoirement) :
+
+~~~ruby
+if reponse < mystere
+  puts "C'est plus."
+elsif reponse > mystere
+  puts "C'est moins."
+else
+  puts "Il s'agit de le bonne réponse !"
+end
+~~~
+
+## Utilisation de case - when
+
+Parfois, on peut être confronté à la réalisation de plusieurs tests sur la valeur d'une variable. On vérifie principalement si ça valeur est égale à une liste de chaînes ou de nombres. Toutefois, cela peut s'avérer très  répétitif :
+
+~~~ruby
+if jour == 1
+  puts "Lundi."
+elsif jour == 2
+  puts "Mardi."
+elsif jour == 3
+  puts "Mercredi."
+elsif jour == 4
+  puts "Jeudi."
+elsif jour == 5
+  puts "Vendredi."
+elsif jour == 6 or jour == 7
+  puts "C'est le Week-End ! "
+else
+  puts "Houston, we have a problem !"
+end
+~~~
+
+Comme vous le savez, les programmeurs sont des êtres paresseux qui aiment bien réduire leur fatigue et la répétition. C'est là que `case` s'avère utile. Il permet tout simplement de répéter un test d'égalité.
+
+~~~ruby
+case variable
+when 1
+  # when 1 est équivalente à variable == 1
+when 5
+  # l'ordre n'est pas important
+when n
+  # ...
+else
+  # ...
+end
+~~~
+
+Adaptons maintenant ce code à l'exemple précédant.
+
+~~~
+case jour
+when 1
+  puts "Lundi."
+when 2
+  puts "Mardi."
+when 3
+  puts "Mercredi."
+when 4
+  puts "Jeudi."
+when 5
+  puts "Vendredi."
+when 6, 7
+  puts "C'est le Week-End ! "
+else
+  puts "Houston, we have a problem !"
+end
+~~~
+
+C'est déjà plus clair, n'est-ce pas ? La virgule dans le dernier `when` est tout simplement équivalente à un `or`, permettant ainsi de concentrer plusieurs cas en un. À noter également que contrairement à d'autres langages, le `case` de Ruby permet également de tester des chaînes de caractères (pour tester la valeur d'un prénom par exemple).
+
+## Quelques ajouts
+
+Il nous arrivera de créer une partie consacré à quelques « trucs et astuces » qui peuvent rendre l'écriture des programmes plus souple ou plus amusante. Ici nous allons introduire le concept de _sucre syntaxique_. Le sucre syntaxique, en programmation, décrit tout simplement un procédé plus simple pour écrire une même instruction. Nous verrons que Ruby est très fouillé en sucre syntaxique.
+
+### Les ternaires
+
+Les ternaires sont un moyen simple d'exprimer un cas classique de condition if - else. Il est cependant déconseillé d'abuser de ce genre de syntaxe dans vos codes. Voici un exemple :
+
+~~~ruby
+age >= 18 ? puts "Tu peux voter." : puts "Tu ne peux pas voter."
+
+# Équivaut à
+
+if age >= 18
+  puts "Tu peux voter."
+else
+  puts "Tu ne peux pas voter."
+end
+~~~
+
+### Le mot clé unless
+
+`unless` est un mot clé équivalent à la négation d'un `if` (soit un `if not`). Il permet simplement d'ajouter plus d'expressivité à votre programme.
+
+~~~ruby
+if not (jour == "Samedi" or jour == "Dimanche")
+  puts "Ce n'est pas le Week-End, dommage !"
+end
+
+# Deviendra
+
+unless jour == "Samedi" or jour == "Dimanche"
+  puts "Ce n'est pas le Week-End, dommage !"
+end
+~~~
+
+C'est certes un changement très léger mais c'est parfois plus compréhensible et ça sonne plus naturel pour un anglophone par exemple.
+
+### Conditions unilinéaires
+
+Il est bon de noter que l'on peut placer une condition sur une seule ligne. Bien sûr, cela est possible que si le bloc de la condition ne fait qu'une seule ligne comme ici :
+
+~~~ruby
+if age < 18
+  puts "Tu ne peux pas voter."
+end
+~~~
+
+~~~ruby
+puts "Tu ne peux pas voter" if age < 18
+
+# Ou
+
+puts "Tu ne peux pas voter" unless age > 18
+~~~
+
+La remarque faite en début de cette sous-partie est applicable ici. Ce genre de conditions est plutôt rare car le bloc ne doit faire qu'une seule ligne et si la condition et la ligne a exécuter sont longues, ça peut rendre le code plus sale qu'au départ. À utiliser avec modération donc !
+
+## Conclusion
+
+Cette partie a été un peu longue mais vous en savez maintenant assez créer vos conditions. Il existe également un [très bon tutoriel](http://www.siteduzero.com/tutoriel-3-342264-l-algebre-de-boole.html) sur le site qui vous permettra d'approfondir la notion de booléen si vous le souhaitez.
