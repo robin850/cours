@@ -1,0 +1,296 @@
+# Variables et constantes
+
+Après la brève introduction du chapitre précédent, il est maintenant temps d'utiliser ce que nous avons appris. Pour ça, nous allons voir un concept indispensable en programmation : les variables. Pour finir, nous parlerons des constantes ; une fois les variables acquises, vous n'aurez aucun mal à appréhender les constantes. Les variables constituent la base de la réusabilité dans les programmes. Les constantes, quant à elles, nous serons vraiment utile que dans la deuxième partie ; lorsque nous verrons l'orienté objet.
+
+## Introduction au concept
+
+Le problème que l'on aurait pu soulever au chapitre précédent est notre incapacité à stocker le résultat de certaines opérations que l'on avait réalisé. Si l'on souhaitait répéter l'affichage d'une chaîne par exemple, il fallait réécrire la même chaîne plus loin dans le script. Les variables permettent de palier à ce problème.
+
+Lorsque l'on stocke une valeur dans une variable, on dit que l'on _assigne_ une valeur à cette variable. Avant d'assigner une valeur à une variable, il faut lui donner un nom (en respectant certaines conventions que nous détaillerons après) et une valeur. La valeur représentant ce que l'on souhaite « stocker ».
+
+Par exemple, on peut créer une variable nommé age (qui contiendrait votre âge) avec pour valeur 64. Ce n'est qu'à titre d'exemple. Nous verrons aussi qu'il existe bien d'autres choses que les nombres et les chaînes de caractères !
+
+### Créer une variable
+
+Sans plus attendre, créons notre première variable (en reprenant l'exemple précédent). Dans votre script, tapez par exemple :
+
+~~~ruby
+age = 64 # On assigne la valeur 64 à la variable "age"
+~~~
+
+Maintenant que la variable est créée, on peut s'en servir pour réaliser diverses opérations. Par exemple, on peut réaliser les opérations arithmétiques vues précédemment :
+
+~~~ruby
+age = 64
+
+p age + 1 # => 65
+
+p age ** 2 # => 4096
+
+p age / 2 # => 32
+
+# ... et ainsi de suite
+~~~
+
+On peut également stocker des chaînes de caractères dans les variables et également utiliser les méthodes que l'on a vu précédemment :
+
+~~~ruby
+mot = "Ho"
+
+puts mot * 3 # => HoHoHo
+
+nom = "john"
+
+puts nom.capitalize # => John
+~~~
+
+Vous remarquerez que malgré les opérations effectuées sur les variables, ces dernières ne sont pas changées en conséquence. Pour changer la valeur de la variable, il faut en quelque sorte la redéfinir. Par exemple :
+
+~~~ruby
+age = 64
+
+age = age + 1
+
+p age # => 65
+~~~
+
+Le problème de cette approche c'est que c'est assez long d'écrire `age = age + 1` alors que l'on veut simplement ajouter 1 à la variable. Voici donc quelques raccourcis qui vous seront bien utiles lorsque vous voudrez multiplier, par exemple, une variable et modifier sa valeur en conséquence :
+
+~~~ruby
+age = 64
+
+age += 1 # => 65
+
+age -= 1 # => 64
+
+age *= 2 # => 128
+
+age /= 6 # => 21
+
+age **= 2 # => 441
+
+p age # => 441
+~~~
+
+La dernière ligne est là pour vous montrer que la variable a bien été modifiée. Maintenant que nous en savons un peu plus sur les variables, histoire de créer des programmes propres et compréhensibles, voyons les différentes conventions qui gouvernent le nommage des variables.
+
+### Conventions de nommage
+
+Voici quelques règles qu'il est conseillé de suivre pour éviter d'une part d'avoir des problèmes avec ruby et d'autre part de créer des scripts peu lisibles :
+
+* Le premier caractère doit être une lettre minuscule (ou **_** )
+* Lorsque le nom de la variable est composé de plusieurs mots, on sépare en général chaque mot qui compose ce dernier par un underscore (`_`) comme par exemple : nom_de_la_variable
+* Pour finir, c'est très important, il faut donner un nom clair à votre variable (comme avec l'exemple précédent avec l'âge)
+
+Aussi, pour des questions de « propreté », mettez un espace de chaque côté du signe égal lorsque vous déclarez une variable.
+
+### Le fil rouge
+
+Pour refaire un parallèle avec le jeu de plus ou moins, dans notre fil rouge nous utilisons les variables pour stocker un tas d'informations comme la réponse de l'utilisateur, le nombre mystère, le nombre tiré au hasard, etc.
+
+Les variables du jeu font intervenir d'autres points comme l'interaction avec l'utilisateur que nous allons voir juste après.
+
+## L'affichage des variables
+
+Nous l'avons vu précédemment, pour afficher une variable, il suffit d'appeler la méthode `puts` ou `p` (chacune étant mieux adaptée à une situation plutôt qu'à une autre) et de placer juste après le nom de notre variable.
+
+Comment faire, par exemple, si l'on souhaite afficher une variable dans une phrase, comme par exemple lorsque l'on affiche l'âge que l'on a ?
+
+~~~ruby
+puts "Vous avez age ans"
+~~~
+
+Lorsque l'on exécute le script, on obtient :
+
+~~~
+Vous avez age ans
+~~~
+
+Ce serait difficile pour ruby de déterminer si chaque mot d'un chaîne faisait référence à une variable. Il faut lui donner un petit coup de pouce. Pour palier à ce problème, deux solutions s'offrent à nous : la concaténation ou l'interpolation. Nous allons introduire très succinctement ces deux notions. Pour le moment nous vous donnons juste les outils nécessaires pour apprendre les concepts de base et pouvoir comprendre la partie deux (dans laquelle nous approfondirons ces concepts) ; il s'agit d'une approche assez globale.
+
+### La concaténation
+
+Plutôt intuitive, la concaténation « assemble » (ou ajoute si vous préférez) des chaînes de caractères ensemble. On peut par exemple faire (avec l'exemple précédent) :
+
+~~~ruby
+age = 64
+puts "Vous avez " + age + " ans"
+~~~
+
+Et là, problème, ruby nous renvoie une erreur :
+
+~~~
+tutoriel.rb:4:in `+': can't convert Fixnum into String (TypeError)
+        from tutoriel.rb:4:in `<main>'
+~~~
+
+Ce problème vient du fait que Ruby est un langage _typé_. Il ne considère pas les différents types de la même manière (nombre (*Fixnum*), nombre à virgule flottante (*Float*), chaînes de caractères (*String*), etc.). Comme nous l'avions vu, `puts` permet d'afficher une chaîne de caractères. Ici, dans le code du dessus, nous demandons à ruby d'afficher deux chaînes de caractères et un nombre. Ruby attend ici une chaîne de caractères, il faut donc _convertir_ le nombre en chaîne de caractères.
+
+Ruby propose une manière simple d'opérer pour la conversion. La plupart des types possède une méthode `to_` ; juste après le underscore se trouve la plupart du temps la première lettre du type vers lequel on veut convertir (en anglais bien sûr). Pour les chaînes de caractères (*String*), par exemple, il existe une méthode `to_s`, pour les nombres (*Integer*), la méthode est `to_i`, `to_f` pour les nombres flottants (*Float*). Nous reparlerons de ces méthodes par la suite.
+
+Par exemple, au chapitre précédent, plutôt que de changer `2` en `2.0`, on aurait pu utiliser `to_f` :
+
+~~~ruby
+p (3 + 4) / 2.to_f # => 3.5
+~~~
+
+Essayons donc de convertir la variable `age` en chaîne de caractères :
+
+~~~ruby
+age = 64
+puts "Vous avez " + age.to_s + " ans."
+~~~
+
+Et si on exécute notre programme, on obtient bien :
+
+~~~
+Vous avez 64 ans.
+~~~
+
+Vous remarquerez que le code produit au dessus (deuxième ligne) n'est pas très propre (bien que très intuitif, pour ajouter on utilise l'opérateur + (plus)). Nous allons donc faire intervenir un autre concept appelé _l'interpolation_.
+
+### L'interpolation
+
+L'interpolation est un concept qui va nous permettre d'interpoler (eh oui) nos variables dans des chaînes de caractères. L'avantage de l'interpolation par rapport à la concaténation est que la conversion n'est pas nécessaire pour afficher la variable. De plus, l'interpolation a l'avantage d'être très propre et claire (ce n'est qu'un avis personnel).
+
+Pour interpoler une variable dans une chaîne, il vous suffit de placer cette variable entre accolades et précéder ces accolades d'un dièse (#), comme ceci :
+
+~~~ruby
+age = 64
+puts "Vous avez #{age} ans."
+~~~
+
+Si on exécute notre fichier, on constate que ça fonctionne :
+
+~~~
+Vous avez 64 ans.
+~~~
+
+> **Attention** : L'interpolation ne peut être utilisée que dans les chaînes de caractères utilisant les guillemets et non les apostrophes. Si vous utilisez la syntaxe vue au-dessus dans une chaîne entourée d'apostrophes, le résultat affiché sera le même que ce que vous avez écrit dans votre fichier. En d'autres termes, la valeur de la variable age ne sera pas affiché.
+
+En fait, ce qui est placé entre les accolades est considéré comme du code Ruby. Vous verrez par la suite que c'est extrêmement puissant et pratique !
+
+### Petit plus : interaction avec l'utilisateur
+
+Pour finir avec les variables, voyons quelque chose de plus intéressant : l'interaction avec l'utilisateur. Ici, nous allons simplement voir comment récupérer une valeur tapé au clavier par l'utilisateur. Par exemple, on pourrait demander l'âge de l'utilisateur.
+
+Pour récupérer une valeur saisie au clavier, on utilise la méthode `gets`. gets signifie _get string_ (soit « récupérer une chaîne de caractères »). Voici un exemple demandant à l'utilisateur son âge :
+
+~~~ruby
+puts "Quel est votre âge ?"
+age = gets
+puts "Vous avez #{age} ans."
+~~~
+
+Il vous suffira ensuite de taper votre âge lorsque vous exécuterez le script. Cependant, au moment de l'exécution, on constate un léger problème :
+
+~~~
+Quel est votre âge ?
+32
+Vous avez 32
+ ans
+~~~
+
+Essayons de comprendre ; appelons la méthode `p` avec la variable `age` (une fois le `gets` fait) :
+
+~~~ruby
+puts "Quel est votre âge ?"
+age = gets
+# puts "Vous avez #{age} ans."
+p age # => "32\n"
+~~~
+
+Vous remarquez que `p` s'avère utile ici car on voit que notre variable contient le caractère `\n` (qui permet le passage à la ligne, souvenez-vous). En fait le `\n` a été généré lorsque l'utilisateur a appuyé sur la touche `Entrée`. De ce fait, notre dernier `puts` ne s'affiche pas sur une seule ligne mais sur deux lignes. Comment palier à ce problème ?
+
+Il y a une méthode qui va de paire avec `gets` (et que vous serrez obligé d'utiliser lorsque vous voudrez comparer des chaînes notamment avec les conditions) qui s'appelle `chomp`. Basiquement, la méthode `chomp` va retirer les caractères un peu spéciaux comme \n par exemple. Essayons donc de modifier notre script avec cette dernière :
+
+~~~ruby
+puts "Quel est votre âge ?"
+age = gets.chomp
+puts "Vous avez #{age} ans."
+~~~
+
+Et cette fois ci ça fonctionne bien :
+
+~~~
+Quel est votre âge ?
+32
+Vous avez 32 ans.
+~~~
+
+### Le fil rouge
+
+Nous allons faire d'une pierre deux coups en vous présentant les interactions avec l'utilisateur dans le jeu de plus ou moins. Ces interactions font aussi intervenir les conversions. La méthode `gets` renvoie des chaînes de caractères mais nous travaillons avec des chiffres. La méthode `to_i` devient donc utile ici :
+
+~~~ruby
+puts "Quelle est la valeur maximale ? "
+maximum = gets.to_i
+~~~
+
+Dans cet exemple, `chomp` est inutile car, en quelque sorte (c'est un peu plus compliqué), `to_i` fait le travail à notre place.
+
+Voici aussi par exemple, comment demande-t-on à l'utilisateur s'il veut rejouer ou non :
+
+~~~ruby
+puts "Voulez-vous continuer ? (o/n) "
+continuer = gets.chomp
+~~~
+
+Plutôt simple, non ? La méthode `gets` vous sera souvent utile lors de la réalisation de vos programmes, souvenez vous en !
+
+## Les constantes
+
+Encore un autre concept que nous allons simplement introduire et dont vous verrez l'utilité et les détails un peu plus tard : les constantes. Les constantes sont assez particulières car dans la façon dont on s'en sert et dont on les définit on pourrait penser avoir affaire à des variables mais une **différence notable** est à souligner : contrairement aux variables, la valeur des constantes ne peut pas être redéfinie.
+
+Avant d'en dire plus, déclarons notre première constante. Elle contiendra notre nom par exemple. Pour créer une constante, procédez de la même manière que pour les variables (au niveau des conventions vues) mais chose importante, la première lettre du nom de la constante doit être en majuscule. Par exemple :
+
+~~~ruby
+Nom = "John"
+~~~
+
+Une convention que la plupart des _Rubyists_ utilisent est de mettre l'intégralité des lettres du nom de la constante en majuscules. Par exemple :
+
+~~~ruby
+NOM = "John"
+~~~
+
+On voit tout de suite que l'on a affaire à une constante. Encore une fois, comme avec les variables, si le nom de votre constante est composé de plusieurs mots/noms communs, séparez ces derniers par des underscores :
+
+~~~ruby
+NOM_COMPLET = "John Doe"
+~~~
+
+Comme dit plus haut, à la différence des variables, les constantes ne peuvent pas être redéfinies. Si vous tentez de redéfinir une constante déjà existante, vous aurez une erreur de la part de ruby. Voici par exemple une session IRB qui le montre :
+
+~~~
+>> NOM_COMPLET = "John Doe"
+=> "John Doe"
+>> NOM_COMPLET = "John Smith"
+(irb):2: warning: already initialized constant NOM_COMPLET
+=> "John Smith"
+>> NOM_COMPLET
+=> "John Smith"
+~~~
+
+Vous remarquez quand même que la valeur a été modifiée mais on obtient une erreur de la part d'IRB.
+
+Si vous voulez afficher la valeur d'une constante, vous pouvez faire comme on a vu précédemment avec les variables (en utilisant l'interpolation ou la concaténation) :
+
+~~~ruby
+NOM_COMPLET = "John Doe"
+puts "Votre nom est #{NOM_COMPLET}."
+~~~
+
+Affichera bien :
+
+~~~
+Votre nom est John Doe.
+~~~
+
+Vous verrez aussi plus tard que les constantes feront partie de notre quotidien mais patience !
+
+## Conclusion
+
+Nous espérons que ce chapitre sur les variables et les constantes vous a plu et aura été enrichissant. Ce chapitre a également été un peu plus riche en nouveautés que les précédents et nous avons également vu un concept puissant et utile : la lecture des saisies au clavier. Nous pouvons maintenant créer des programmes qui interagissent (de manière plutôt simple, certes) avec l'utilisateur.
+
+Dans le prochain chapitre, place aux conditions !
