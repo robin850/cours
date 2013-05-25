@@ -1,0 +1,180 @@
+# Les boucles
+
+Bienvenue dans ce cinquième chapitre. Nous allons maintenant aborder le sujet des boucles ; un mécanisme puissant parfois dur à assimiler lorsque l'on débute mais qui est finalement très simple mais aussi très utile !
+
+Bonne lecture.
+
+## La boucle de base : loop
+
+Avant d'entrer dans des détails, expliquons d'abord ce qu'est une « boucle » : Une boucle (_loop_ en anglais) est tout simplement une structure de contrôle (comme les conditions) permettant d'exécuter plusieurs fois une suite d'instructions.
+
+Dans la plupart des langages, il existe en général plusieurs structures permettant de créer une boucle ; chacune étant adapté à certains cas. Pour commencer en douceur, nous allons commencer par la boucle la plus simple : la boucle `loop`.
+
+~~~ruby
+loop do
+  puts "Ruby" # Contenu de la boucle
+end
+~~~
+
+La syntaxe est très simple. On appelle `loop` puis on lui passe un bloc (un bloc étant un portion de code délimitée par les mots clés `do` et `end`) contenant le code a exécuter de manière répétitive. Si vous avez essayé d'exécuter ce code, vous aurez surement remarqué un petit problème :
+
+![Capture](http://uploads.siteduzero.com/files/398001_399000/398409.png)
+
+Cette boucle est, si vous l'avez remarqué, une boucle infinie puisque rien n'indique à ruby qu'il doit stopper la boucle à un moment donné. Vous pouvez stopper le programme en tapant `Ctrl` + `c`. C'est là qu'intervient le mot clé `break`. Ce dernier nous permet de sortir de la boucle. On appel par exemple break une fois que l'itération sur une variable est achevée. Si on veut répéter 5 fois une action :
+
+* On crée une variable avec pour valeur 0
+* À chaque **tour de boucle** on **incrémente** de 1
+* Une fois que la valeur de la variable est 5, on fait appel à `break`
+
+Voici un exemple illustrant ces propos :
+
+~~~ruby
+i = 0
+
+loop do
+  puts "Ruby"
+
+  i += 1
+  break if i > 5
+end
+~~~
+
+Vous remarquez qu'ici nous avons fait appel à un peu de sucre syntaxique ; l'utilisation de conditions sur une seule ligne se fait très souvent avec des mots clés tel que `break`.
+
+## While et until
+
+Comme dit précédemment, il existe généralement, en programmation, plusieurs moyens de parvenir à réaliser une boucle dans un programme. Nous allons ici étudier la boucle `while`.
+
+### While : tant que
+
+`while` a besoin d'une condition qui permet de savoir si le corps de la boucle est à exécuter ou non. Ruby va vérifier à chaque tour de boucle que la condition passée à while est valide ou non. Si elle l'est, la boucle est exécutée ; dès qu'elle ne l'est plus, la boucle est interrompue. Il est bon de noter que si la condition n'est pas remplie la première fois, ruby n'exécutera même pas le corps de la boucle.
+
+Vous pouvez par exemple passer en paramètre toutes les conditions vues dans le chapitre précédent ; while évaluant à true ou false ce qui est lui est donnée comme if.
+
+Voici l'exemple vu précédemment réécrit avec la boucle `while` :
+
+~~~ruby
+i = 0
+
+while i < 5
+  puts "i = #{i}"
+  i += 1
+end
+
+puts "Après la boucle, i = #{i}"
+~~~
+
+Et voici le résultat de l'exécution de ce programme :
+
+~~~
+i = 0
+i = 1
+i = 2
+i = 3
+i = 4
+Après la boucle, i = 5
+~~~
+
+> **Information** : À noter que le mot clé `break` est tout à fait utilisable dans une boucle `while`. Il permet simplement de stopper l'exécution de la boucle depuis n'importe quel endroit dans le corps de la boucle.
+
+### Sucre syntaxique
+
+Au chapitre précédant, nous avions introduit le sucre syntaxique et également la négation de if, à savoir unless. On peut dir que `until` est à `while` ce que `unless` est à `if`. Le mot clé `until` constitue la forme de « négative » de while ; ce mot clé est encore une fois là simplement pour ajouter de l'expressivité à nos programmes.
+
+Voici donc notre exemple précédent revisité avec `until` :
+
+~~~ruby
+i = 0
+
+until i > 4
+  puts "i = #{i}"
+end
+
+puts "Après la fin de la boucle, i = #{i}"
+~~~
+
+Le résultat est identique au résultat de l'exemple précédent.
+
+### Petit plus
+
+Nous allons faire d'une pierre deux coups en voyant une autre syntaxe de la boucle while (ou until) et en faisant directement le parallèle avec le fil rouge.
+
+Une syntaxe assez proche de celle que nous venons de voir avec while et until consiste à utiliser le mot clé `begin`. La différence avec la syntaxe vue est que la syntaxe utilisant begin sera exécutée au moins une fois (dans certains langage, on peut assimiler ceci à la syntaxe `do ... end`). Voici un exemple du fil rouge exécutant le jeu tant que l'utilisateur souhaite jouer :
+
+~~~ruby
+begin
+  # Code du jeu
+end while continuer == "oui"
+~~~
+
+On demande bien sûr dans la boucle à l'utilisateur s'il souhaite continuer. Cela permet entre autre d'exécuter le jeu une première fois sans avoir à demander à l'utilisateur s'il souhaite rejouer alors qu'il n'a même pas commencé. Les instructions dans le corps de la boucle ne sont ainsi pas répétées avant celle-ci.
+
+## Autres boucles et petits plus
+
+Il existe encore d'autres moyens permettant de créer des boucles. Nous allons ici vous en en présenter d'autres que ceux vus précédemment histoire d'étoffer vos possibilités dans la création de boucles. Nous allons aussi voir certains mots clés permettant de complexifier la création de boucles.
+
+### La boucle for
+
+La boucle `for` est très simple à appréhender. Nous l'utiliserons notamment lorsque nous verrons certains objets comme les tableaux. La boucle for est souvent accompagnée du mot clé `in`, ce dernier étant suivi de l'objet à _parcourir_. On peut par exemple passer un intervalle (_Range_ en anglais) ; nous verrons d'autres éléments passables après `in` par la suite :
+
+~~~ruby
+for i in 3..6
+  puts i
+end
+~~~
+
+Nous affichera :
+
+~~~
+3
+4
+5
+6
+~~~
+
+Nous verrons par la suite que la boucle `for` est en pratique peu utilisée. Elle est surtout utilisée pour sa lisibilité.
+
+### Les méthodes times et upto/downto
+
+La méthode `times` permet de répéter *n* fois une suite d'instructions. Voici notre exemple de début de chapitre traduit grâce à la méthodes times :
+
+~~~
+5.times do
+  puts "Ruby"
+end
+~~~
+
+Ceci est bien plus simple et concis que l'exemple avec loop de la première sous-partie de ce chapitre. L'avantage de l'exemple avec loop et que l'on pouvait connaître la valeur de l'itération de la variable. C'est là que la méthode `upto` vient à notre secours :
+
+~~~ruby
+1.upto(10) do |i|
+  puts "Tour de boucle numéro #{i}"
+end
+~~~
+
+Ici, la syntaxe avec les _pipes_ juste après le `do` permet de définir les variables auxquelles ruby va associer des valeurs. Ici, `i` représente le nombre courant de la progression de la boucle. Si vous voulez exécutez la boucle dans l'autre sens, vous pouvez également regarder du côté de la méthode `downto`. Essayez de trouver tout seul son fonctionnement ; vous devriez y arriver sans problème !
+
+### Le mot clé next
+
+Au début de ce chapitre, nous vous avions présenté `break` qui nous permettait d'interrompre l'itération. Il existe d'autres mots clés permettant d'avoir plus de contrôle sur l'exécution des boucles. C'est la cas de `next`.
+
+Le mot clé `next` permet de passer à l'itération suivante. De la même manière que break, on l'utilise souvent avec une condition unilinéaire. Voici un exemple qui passe à l'itération suivante lorsque le nombre courant est pair :
+
+~~~ruby
+for i in 0..10
+  next if i % 2 == 0
+  puts "i = #{i}"
+end
+~~~
+
+~~~
+i = 1
+i = 3
+i = 5
+i = 7
+i = 9
+~~~
+
+## Conclusion
+
+Ce chapitre sur les boucles est maintenant fini ; nous verrons au fil du cours d'autres procédés pour parvenir à réaliser une itération mais il faudra pour cela avoir saisi d'autres notions. Dans le chapitre suivant, nous allons aborder le sujet des tableaux (_Array_ en anglais) ; un moyen très puissant pour stocker et organiser nos données.
